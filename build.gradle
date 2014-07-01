@@ -13,30 +13,22 @@ configurations {
 }
 
 dependencies {
+  compile localGroovy()
+  compile gradleApi()
+
   compile 'org.json:json:20140107'
   compile 'com.amazonaws:aws-java-sdk:1.7+'
   compile 'org.apache.httpcomponents:httpclient:4.3+'
   compile 'org.apache.httpcomponents:httpcore:4.3+'
+  compile 'org.eclipse.jgit:org.eclipse.jgit:3.2+'
 
   releaseMaven 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 sourceSets {
   main {
-    java {
-      srcDir 'src'
-    }
-    resources {
-      srcDir 'resources'
-    }
-  }
-
-  test {
-    java {
-      srcDir 'test'
-    }
-    resources {
-      srcDir 'test/resources'
+    groovy {
+      srcDirs = ['src']
     }
   }
 }
@@ -52,6 +44,7 @@ uploadArchives {
   assert password != null, "DEPLOY_PASSWORD is required"
   assert releaseUrl != null, "DEPLOY_URL is required"
 
+  dependsOn ':build'
   configuration = configurations.releaseMaven
   repositories.mavenDeployer {
     repository(url: releaseUrl) {
