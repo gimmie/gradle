@@ -1,0 +1,39 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+group = 'com.gimmie'
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.json:json:20140107'
+  compile 'com.amazonaws:aws-java-sdk:1.7+'
+  compile 'org.apache.httpcomponents:httpclient:4.3+'
+  compile 'org.apache.httpcomponents:httpcore:4.3+'
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+    }
+    resources {
+      srcDir 'resources'
+    }
+  }
+
+  test {
+    java {
+      srcDir 'test'
+    }
+    resources {
+      srcDir 'test/resources'
+    }
+  }
+}
+
+
+defaultTasks "build"
