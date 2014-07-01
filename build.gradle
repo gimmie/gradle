@@ -53,7 +53,7 @@ uploadArchives {
   assert releaseUrl != null, "DEPLOY_URL is required"
 
   configuration = configurations.releaseMaven
-  repository.mavenDeployer {
+  repositories.mavenDeployer {
     repository(url: releaseUrl) {
       authentication userName: username, password: password
     }
