@@ -8,11 +8,17 @@ repositories {
   mavenCentral()
 }
 
+configurations {
+  releaseMaven
+}
+
 dependencies {
   compile 'org.json:json:20140107'
   compile 'com.amazonaws:aws-java-sdk:1.7+'
   compile 'org.apache.httpcomponents:httpclient:4.3+'
   compile 'org.apache.httpcomponents:httpcore:4.3+'
+
+  releaseMaven 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 sourceSets {
@@ -35,5 +41,21 @@ sourceSets {
   }
 }
 
-
 defaultTasks "build"
+
+uploadArchives {
+  def username = System.getenv "DEPLOY_USER"
+  def password = System.getenv "DEPLOY_PASSWORD"
+  def releaseUrl = System.getenv "DEPLOY_URL"
+
+  assert username != null, "DEPLOY_USER is required"
+  assert password != null, "DEPLOY_PASSWORD is required"
+  assert releaseUrl != null, "DEPLOY_URL is required"
+
+  configuration = configurations.releaseMaven
+  repository.mavenDeployer {
+    repository(url: releaseUrl) {
+      authentication userName: username, password: password
+    }
+  }
+}
