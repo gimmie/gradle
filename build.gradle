@@ -33,7 +33,7 @@ sourceSets {
   }
 }
 
-defaultTasks "uploadArchives"
+defaultTasks "build"
 
 artifacts {
   releaseMaven jar
