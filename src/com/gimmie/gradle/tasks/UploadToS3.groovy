@@ -1,4 +1,4 @@
-package com.gimmie
+package com.gimmie.gradle.tasks
 
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
