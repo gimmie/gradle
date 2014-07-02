@@ -1,21 +1,21 @@
 package com.gimmie
 
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.TaskAction
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.GroupGrantee
 import com.amazonaws.services.s3.model.Permission
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClients
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.ObjectId
+import org.eclipse.jgit.lib.Repository
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.TaskAction
 import org.json.JSONArray
 import org.json.JSONObject
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder
-import org.eclipse.jgit.lib.Repository
-import org.eclipse.jgit.lib.ObjectId
-import org.eclipse.jgit.api.Git
 
 class UploadToS3 extends DefaultTask {
 
@@ -24,7 +24,7 @@ class UploadToS3 extends DefaultTask {
   def final static TYPE_PATCH = 2
 
   @InputFile
-  File archiveFile
+  def archiveFile
 
   @Input
   def type = TYPE_PATCH

@@ -33,20 +33,15 @@ sourceSets {
   }
 }
 
-defaultTasks "build"
+defaultTasks "uploadArchives"
+
+artifacts {
+  releaseMaven jar
+}
 
 uploadArchives {
-  def username = System.getenv "DEPLOY_USER"
-  def password = System.getenv "DEPLOY_PASSWORD"
-  def releaseUrl = System.getenv "DEPLOY_URL"
-
-  assert username != null, "DEPLOY_USER is required"
-  assert password != null, "DEPLOY_PASSWORD is required"
-  assert releaseUrl != null, "DEPLOY_URL is required"
-
-  dependsOn ':build'
-  configuration = configurations.releaseMaven
   repositories.mavenDeployer {
+    configuration = configurations.releaseMaven
     repository(url: releaseUrl) {
       authentication userName: username, password: password
     }
